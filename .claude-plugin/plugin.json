@@ -1,0 +1,23 @@
+{
+  "name": "xcode-mcp-workflow",
+  "version": "0.1.0",
+  "description": "MCP-first workflow for Xcode projects. Helps Claude prefer Xcode MCP tools for project navigation, file reads and edits, builds, diagnostics, tests, SwiftUI previews, and Swift snippet execution.",
+  "author": {
+    "name": "leepepe",
+    "url": "https://github.com/leepepe"
+  },
+  "repository": "https://github.com/leepepe/xcode-mcp-workflow",
+  "license": "MIT",
+  "keywords": [
+    "xcode",
+    "mcp",
+    "swift",
+    "swiftui",
+    "ios",
+    "macos",
+    "build",
+    "tests",
+    "diagnostics",
+    "preview"
+  ]
+}

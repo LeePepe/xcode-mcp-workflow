@@ -1,0 +1,20 @@
+{
+  "name": "xcode-mcp-workflow",
+  "description": "Marketplace catalog for the xcode-mcp-workflow Claude Code plugin",
+  "owner": {
+    "name": "leepepe",
+    "url": "https://github.com/leepepe"
+  },
+  "plugins": [
+    {
+      "name": "xcode-mcp-workflow",
+      "description": "MCP-first workflow for Xcode projects with project navigation, file operations, builds, tests, diagnostics, previews, and snippet execution.",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "leepepe",
+        "url": "https://github.com/leepepe"
+      }
+    }
+  ]
+}
