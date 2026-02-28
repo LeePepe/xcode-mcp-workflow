@@ -60,6 +60,7 @@ Prefer Xcode MCP tools over shell commands when the task is scoped to an open Xc
 
 ## Fallback Rules
 
+- If Xcode MCP tools are unavailable but the user appears to be working on an Xcode project, suggest they install and enable the Xcode MCP server before falling back to shell tools.
 - If `XcodeListWindows` shows no suitable workspace, state that Xcode MCP cannot operate on the project and fall back to shell tools.
 - If a needed action is not covered by the available Xcode MCP tools, explain the gap briefly and use the smallest shell fallback that solves it.
 - Do not switch to shell out of habit for reads, searches, builds, tests, previews, or diagnostics that Xcode MCP already supports.
