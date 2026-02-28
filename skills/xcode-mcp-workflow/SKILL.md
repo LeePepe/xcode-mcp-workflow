@@ -1,6 +1,6 @@
 ---
 name: xcode-mcp-workflow
-description: Use when working in an Xcode project and an Xcode MCP server is available, especially for browsing the project navigator, reading or editing project files, building the active workspace, running Swift or XCTest targets, inspecting build diagnostics, rendering SwiftUI previews, or executing Swift snippets in file context.
+description: Use when working inside an open Xcode workspace or project and an Xcode MCP server is available. Prefer over shell commands for any project-scoped task — navigation, file edits, builds, diagnostics, tests, previews, or Swift snippet execution.
 ---
 
 # Xcode MCP Workflow
@@ -8,6 +8,18 @@ description: Use when working in an Xcode project and an Xcode MCP server is ava
 ## Overview
 
 Prefer Xcode MCP tools over shell commands when the task is scoped to an open Xcode workspace or project. Use shell fallback only when the Xcode MCP server is unavailable, no matching workspace is open, or the required action is outside the Xcode MCP surface.
+
+## When to Use
+
+**Use this skill when:**
+- An Xcode MCP server is connected and a workspace or project is open in Xcode.
+- The task involves navigating, reading, editing, building, testing, or debugging Swift/SwiftUI/Objective-C source inside that project.
+- You are about to reach for `cat`, `rg`, `find`, or a shell build command for something that is scoped to the Xcode project.
+
+**Do not use this skill when:**
+- No Xcode window is open or `XcodeListWindows` returns no suitable workspace.
+- The task is entirely outside the Xcode project (e.g., shell scripts, CI config, non-Xcode files).
+- The required action has no equivalent in the Xcode MCP tool surface.
 
 ## Workflow
 
@@ -51,10 +63,14 @@ Prefer Xcode MCP tools over shell commands when the task is scoped to an open Xc
 - If `XcodeListWindows` shows no suitable workspace, state that Xcode MCP cannot operate on the project and fall back to shell tools.
 - If a needed action is not covered by the available Xcode MCP tools, explain the gap briefly and use the smallest shell fallback that solves it.
 - Do not switch to shell out of habit for reads, searches, builds, tests, previews, or diagnostics that Xcode MCP already supports.
+- `XcodeGrep` searches only the Xcode project navigator tree. If the project uses Swift Packages whose sources live outside the `.xcodeproj` structure (e.g. a local `Packages/` directory), try `XcodeGrep` first and fall back to `Grep` with the repo root if it returns no results.
 
 ## Common Mistakes
 
-- Using `rg`, `cat`, filesystem edits, or generic shell commands for project files before checking whether Xcode MCP can do the same job.
-- Running broad shell builds when `BuildProject` and Xcode diagnostics would provide better context.
-- Guessing test identifiers instead of calling `GetTestList`.
-- Describing a SwiftUI preview without rendering it first.
+| Mistake | Reality |
+|---------|---------|
+| Going straight to `Grep`/`rg` for Swift source search | Try `XcodeGrep` first; fall back to `Grep` only if the file lives in a resolved Swift Package outside the navigator tree. |
+| Using `Read`/`cat` to read a project file whose path is already known | `XcodeRead` is still preferred — it operates on project-relative paths and keeps work inside the Xcode toolchain. |
+| Running `xcodebuild` in the shell | Use `BuildProject`; it triggers the Xcode build pipeline and returns structured diagnostics. |
+| Guessing test identifiers | Call `GetTestList` first; test identifiers change when tests are added or renamed. |
+| Describing a SwiftUI preview without rendering | Run `RenderPreview` before making any claim about what the UI looks like. |
