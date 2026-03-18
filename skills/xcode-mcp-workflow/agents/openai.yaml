@@ -10,4 +10,4 @@ dependencies:
       description: "Xcode MCP server for project navigation, file operations, builds, tests, diagnostics, previews, and snippets"
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false
