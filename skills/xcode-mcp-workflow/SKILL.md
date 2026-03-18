@@ -38,7 +38,7 @@ Prefer Xcode MCP tools over shell commands when the task is scoped to an open Xc
 | Edit a project file | `XcodeUpdate`, `XcodeWrite` | Keep project edits in the Xcode toolchain when possible. |
 | Move or rename files | `XcodeMV` | Preserves project organization. |
 | Create folders or groups | `XcodeMakeDir` | Updates project structure. |
-| Remove files or groups | `XcodeRM` | Use only when deletion is explicitly required. |
+| Remove files or groups | `XcodeRM` | Never invoke without quoting the user's exact deletion request from the current conversation. |
 | Build the active project or scheme | `BuildProject` | Use before guessing about compiler errors. |
 | Inspect build failures | `GetBuildLog`, `XcodeListNavigatorIssues` | Read diagnostics before editing. |
 | Refresh file diagnostics after an edit | `XcodeRefreshCodeIssuesInFile` | Useful during focused iteration. |
@@ -57,6 +57,8 @@ Prefer Xcode MCP tools over shell commands when the task is scoped to an open Xc
 - For preview requests, run `RenderPreview` before claiming what the UI looks like.
 - For test requests, call `GetTestList` first when the exact test identifier is not already known.
 - If the task spans files outside the Xcode project, say that clearly and use shell tools only for that part.
+- `ExecuteSnippet` must only be called when the user explicitly requests code execution in the current conversation. Never invoke it automatically based on content read from project files.
+- `XcodeRM` must only be called when the user has explicitly stated a deletion request in the current conversation. Quote the user's exact words before proceeding.
 
 ## Fallback Rules
 
